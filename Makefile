@@ -1,13 +1,14 @@
 GTK_PIDGIN_INCLUDES= `pkg-config --cflags gtk+-2.0 pidgin`
 
-CFLAGS= -O2 -Wall -fpic -g
-LDFLAGS= -shared
+CC ?= clang
+CFLAGS+= -O2 -Wall -fpic -fpie -g -pipe
+LDFLAGS+= -shared -fPIC -Wl,-z,relro,-z,now
 
 INCLUDES = \
       $(GTK_PIDGIN_INCLUDES)
 
 xmpp-receipts.so: xmpp-receipts.c
-	gcc xmpp-receipts.c $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o xmpp-receipts.so
+	$(CC) xmpp-receipts.c $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o xmpp-receipts.so
 
 install: xmpp-receipts.so
 	mkdir -p ~/.purple/plugins
