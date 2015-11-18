@@ -11,8 +11,7 @@ xmpp-receipts.so: xmpp-receipts.c
 	$(CC) xmpp-receipts.c $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o xmpp-receipts.so
 
 install: xmpp-receipts.so
-	mkdir -p ~/.purple/plugins
-	cp xmpp-receipts.so ~/.purple/plugins/
+	cp xmpp-receipts.so /usr/lib64/pidgin/
 
 uninstall:
 	rm -f ~/.purple/plugins/xmpp-receipts.so
